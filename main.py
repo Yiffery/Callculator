@@ -126,9 +126,12 @@ def physics_simulator():
 
     
     while True:
+        # Header
         clear()
         logo("Callculator > Math > Physics Simulator")
         print("＿"*100)
+
+        # DEBUG
         print(cube.pos.y)
 
         # CALCULATE VELOCITY
@@ -137,7 +140,7 @@ def physics_simulator():
         # COLLISION CHECK
         if cube.pos.y <= 0:
             cube.vel = 0
-            cube.pos.y=0
+            cube.pos.y = 0
         else:
             
             # MODIFY POSITION
