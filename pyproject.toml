@@ -1,7 +1,7 @@
 [project]
-name = "repl-nix-workspace"
+name = "Callculator"
 version = "0.1.0"
-description = "Add your description here"
+description = "Calculator + ALL = CALLCULATOR"
 requires-python = ">=3.12"
 dependencies = [
     "matplotlib>=3.10.0",
