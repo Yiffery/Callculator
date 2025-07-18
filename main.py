@@ -6,7 +6,7 @@ import math as m
 import random as r
 import difflib
 
-version = "Callculator 0.2"
+version = "cALLculator 0.3"
 
 # GRAPHING CALC INITIATE
 view_size = 10
@@ -77,9 +77,9 @@ def clear():
     os.system('clear')
     
 def loadingScreen(task, number, total):
-    # Callculator
+    # cALLculator
     clear()
-    logo("Callculator > Loading")
+    logo("cALLculator > Loading")
     print()
     print(" > Loading " + task)
 
@@ -94,10 +94,10 @@ loadingScreen("Library Imports", 1, 10)
 
 def unit_converter():
     clear()
-    logo("Callculator > Utils > Unit Converter")
+    logo("cALLculator > Utils > Unit Converter")
     print()
 
-def cir(radius):
+def cir(radius,s):
     for y in range(-radius, radius + 1):
         line = ""
         for x in range(-2 * radius, 2 * radius + 1):
@@ -106,25 +106,26 @@ def cir(radius):
                 line += "*"
             else:
                 line += " "
-        print(line)
-
-def bal():
+        print(" "*s,line)
+constant = 3
+ax = 5
+h = 5
+def bal(constant,ax,h):
     clear()
-    logo("Callculator > Utils > bal")
+    # logo("Callculator > Utils > bal")
     print()
-    for p in range(100):
-        print(" ")
+
     clear()
-    dis = 6
-    
+    dis = h
     f = True
     #wasdwasd = True
     i = 0
-    limit = 5
-    while True: 
-        for k in range(50):
+    limit = h-1
+    flag = True
+    while flag: 
+        for k in range(35):
             print()
-        cir(3)
+        cir(constant,ax)
         for y in range(1,dis):
             print()
             # print(l[i])
@@ -139,17 +140,45 @@ def bal():
             f = True
             limit = m.floor(limit*0.9)
             # //print(limit)
-        print("-------------------------")
-        t.sleep(0.1)
+        if(limit == 0):
+            flag = False
+        print("---------------------------------------------------")
+        t.sleep(0.05)
         clear()
         i+=1
+    ask()
+def ask():
+    constant = 3
+    ax = 5
+    h = 5
+    move = input("Movement Direction(x,y,z): ")
+    if("x" in move.lower()):
+        Xmove = input("Move X by how much: ")
+        ax += int(Xmove)
+        bal(constant,ax,h)
+    if("y" in move.lower()):
+        Ymove = input("Move Y by how much: ")
+        constant += int(Ymove)
+        if(constant < 1):
+            constant = 1        
+        bal(constant,ax, h)
+    if("z" in move.lower()):
+        Zmove = input("Move Z by how much: ")
+        h += int(Zmove)
+        #limit += int(Zmove)-1
+        #print(limit)
+        t.sleep(1)
+        bal(constant, ax,h)
+    else:
+        print("try again idiot")
+        ask()
 
 
 
 
 def graphing_calculator():
     clear()
-    logo("Callculator > Math > Graphing Calculator")
+    logo("cALLculator > Math > Graphing Calculator")
     print()
     print("\033[1m  Key Guide\033[0m")
     print("  | Use ^ for exponents")
@@ -169,10 +198,25 @@ def graphing_calculator():
     raw_equation = raw_equation.replace("^", "**")
     print(raw_equation)
 
+    raw_equation = str(raw_equation)
+
+    x = np.linspace(-2, 2, 100)
+    y = eval(raw_equation)
+    
+    plt.plot(x, y)
+    plt.show()
+
+
+    
     VALUES = []
     global a
-    a = -view_size
+    x = np.linspace(0, 10, 100)
 
+    graph = plt.plot(x, eval(raw_equation))
+
+    a = -view_size
+    
+    
     while a <= view_size:
         # EVALUATE
         # Replace x with value to evaluate
@@ -196,7 +240,7 @@ def graphing_calculator():
 def physics_simulator():
     # INITIALIZE
     clear()
-    logo("Callculator > Math > Physics Simulator > Loading...")
+    logo("cALLculator > Math > Physics Simulator > Loading...")
     print("-"*100)
     for i in range(20):
         print()
@@ -207,7 +251,7 @@ def physics_simulator():
     while True:
         # Header
         clear()
-        logo("Callculator > Math > Physics Simulator")
+        logo("cALLculator > Math > Physics Simulator")
         print("＿"*100)
 
         # DEBUG
@@ -251,7 +295,7 @@ def credit():
 
 def home():
     clear()
-    logo("Callculator > Home")
+    logo("cALLculator > Home")
     print()
     print("\033[1m  Math\033[0m")
     print("  | Graphing Calculator")
@@ -290,7 +334,7 @@ def home():
         case "random number generator":
             print("Random Number Generator")
         case "bal":
-            bal()
+            bal(constant, ax, h)
         case "about":
             print("About")
         case "credits":
