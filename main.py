@@ -6,7 +6,7 @@ import math as m
 import random as r
 import difflib
 
-version = "cALLculator 0.3"
+version = "cALLculator 0.4"
 
 # GRAPHING CALC INITIATE
 view_size = 10
@@ -154,21 +154,34 @@ def ask():
     move = input("Movement Direction(x,y,z): ")
     if("x" in move.lower()):
         Xmove = input("Move X by how much: ")
-        ax += int(Xmove)
-        bal(constant,ax,h)
+        if Xmove.isdigit():
+            
+            ax += int(Xmove)
+            bal(constant,ax,h)
+        else:
+            print("try again idiot")
+            ask()
     if("y" in move.lower()):
         Ymove = input("Move Y by how much: ")
-        constant += int(Ymove)
-        if(constant < 1):
-            constant = 1        
-        bal(constant,ax, h)
+        if(Ymove.isdigit()):
+            constant += int(Ymove)
+            if(constant < 1):
+                constant = 1        
+            bal(constant,ax, h)
+        else:
+            print("try again idiot")
+            ask()
     if("z" in move.lower()):
         Zmove = input("Move Z by how much: ")
-        h += int(Zmove)
-        #limit += int(Zmove)-1
-        #print(limit)
-        t.sleep(1)
-        bal(constant, ax,h)
+        if Zmove.isdigit():
+            h += int(Zmove)
+            #limit += int(Zmove)-1
+            #print(limit)
+            t.sleep(1)
+            bal(constant, ax,h)
+        else:
+            print("try again idiot")
+            ask()
     else:
         print("try again idiot")
         ask()
@@ -213,29 +226,13 @@ def graphing_calculator():
     x = np.linspace(0, 10, 100)
 
     graph = plt.plot(x, eval(raw_equation))
-
-    a = -view_size
-    
-    
-    while a <= view_size:
-        # EVALUATE
-        # Replace x with value to evaluate
-        raw_equation = raw_equation.replace("x", str(a))
-        print(raw_equation)
-        print(raw_equation.replace("x", str(a)))
-        asd = eval(raw_equation)
-        VALUES.append(sda)
-        a+=1
-        print(a)
-        
-    print(VALUES)
-
-    
-    # LOOP VALUES
     
 
-    fig, axs = plt.subplots(2, 2)
+    
+    graph.grid()
     plt.show()
+
+    graphing_calculator()
     
 def physics_simulator():
     # INITIALIZE
