@@ -1,12 +1,26 @@
+# FINAL STRETCH SCHEDULE
+# Monday: Finish basic graphing calculator, begin 4 function calculator
+# Tuesday: Finish 4 function calculator and advanced graphing calculator, begin Unit converter
+# Wednesday: Finish unit converter, b
 import os
+version = "cALLculator 0.5"
+os.system('clear')
+print(r"          _    _     _               _       _             ")
+print(r"   ___   / \  | |   | |    ___ _   _| | __ _| |_ ___  _ __ ")
+print(r"  / __| / _ \ | |   | |   / __| | | | |/ _` | __/ _ \| '__|   | Loading...")
+print(" | (__ / ___ \| |___| |__| (__| |_| | | (_| | || (_) | |      | \x1B[3mDeveloped by Yifei & Yiran\x1B[0m")
+print(r"  \___/_/   \_\_____|_____\___|\__,_|_|\__,_|\__\___/|_| ")
+
+
 import matplotlib.pyplot as plt
 import numpy as np
 import time as t
 import math as m
 import random as r
 import difflib
+import threading
 
-version = "cALLculator 0.4"
+
 
 # GRAPHING CALC INITIATE
 view_size = 10
@@ -38,6 +52,7 @@ class object:
         print("｜" + "＿"*(self.size) + "｜")
     
 def logo(path):
+    clear()
     print(r"          _    _     _               _       _             ")
     print(r"   ___   / \  | |   | |    ___ _   _| | __ _| |_ ___  _ __ ")
     print(r"  / __| / _ \ | |   | |   / __| | | | |/ _` | __/ _ \| '__|   | " + version)
@@ -71,8 +86,6 @@ def custom_logo(title, desc):
         print(r"  \___/_/   \_\_____|_____\___|\__,_|_|\__,_|\__\___/|_|")
         t.sleep(0.075)
 
-
-
 def clear():
     os.system('clear')
     
@@ -88,9 +101,6 @@ def loadingScreen(task, number, total):
     print("[" + "="*progress + " "*(20-progress) + "] " + str(percentage), "%" )
     
 loadingScreen("Library Imports", 1, 10) 
-# Launch home screen
-# HOME SCREEN
-
 
 def unit_converter():
     clear()
@@ -207,33 +217,63 @@ def graphing_calculator():
     print("  Please enter an equation")
     raw_equation = input("  >>> ")
 
-    # PREFORMAT
+    # Format Equation
     raw_equation = raw_equation.replace("^", "**")
-    print(raw_equation)
-
     raw_equation = str(raw_equation)
 
-    x = np.linspace(-2, 2, 100)
+    # Prepare Graph
+    x = np.linspace(-view_size, view_size, 100)
     y = eval(raw_equation)
-    
+
+    # Render Graph
     plt.plot(x, y)
-    plt.show()
+    plt.show(block=False)
 
+    # Post Graph
+    def post_graph_ui():
+        logo("cALLculator > Math > Graphing Calculator")
+        print()
+        print("\033[1m  Graph Options\033[0m")
+        print("  | /add + equation to add to the graph")
+        print("  | /restart to restart graphing")
+        print("  | /view to change the view size")
+        print("  | Enter anything else to exit")
+        print()
+
+        command = input("  >>> ")
+        if command.startswith("/add"):
+            command = command.replace("/add", "")
+            command = command.replace("^", "**")
+            
+            plt.plot(x, eval(command))
+            plt.show()
+            post_graph_ui()
+        elif command.startswith("/restart"):
+            graphing_calculator()
+        elif command.startswith("/view"):
+            global view_size
+            command = command.replace("/view", "")
+            view_size = int(command)
+            
+        else:
+            home()
+
+            # THE CALLCULATOR MUSEUM (DO NOT TOUCH BELOW):
+            # https://www.youtube.com/watch?v=ZbZSe6N_BXs
+    
+            #sry to interupt but wats the city skilines music u listen to called
+            # ummmm 
+            # It's Cities: Skylines 1 Mars Radio
+            # Ill send a link
+            # :>
+            # https://www.youtube.com/playlist?list=PLWkwE9lE45_m8wi256bF7FrEAininN30x yipeee
+            # do you have apple music nah its fine 
+            
 
     
-    VALUES = []
-    global a
-    x = np.linspace(0, 10, 100)
+    post_graph_ui()
 
-    graph = plt.plot(x, eval(raw_equation))
-    
-
-    
-    graph.grid()
-    plt.show()
-
-    graphing_calculator()
-    
+# Physics Simulator
 def physics_simulator():
     # INITIALIZE
     clear()
@@ -284,12 +324,33 @@ def credit():
     custom_logo("| Developers", "| Yifei & Yiran")
     custom_logo("| Class", "| Computational Physics")
     custom_logo("| Instructor", "| Mrs. Rajapakse")
-    custom_logo("| Made Possible By", "| Replit, Python")
+    custom_logo("| Made Possibley", "| Replit, Python")
     custom_logo("| Visual Graphing From", "| Matplotlib")
     custom_logo("| Math Tools From", "| Math & Random Library")
+    custom_logo("| Search Made Possible By", "| Difflib")
+    custom_logo("| Also", "| Numpy, Threading, Time, OS")
     custom_logo("| Biggest Thanks To", "| You, for checking this out!")
+
     home()
 
+def basic_calc():
+    logo("cALLculator > 4-Function Calculator")
+    def print_calc(selected):
+        print("_"*4)
+
+
+
+#  _______________________
+# |▒▒▒▒▒▒▒|       |       |       |
+# |▒▒▒1▒▒▒|   2   |   3   |   /   |
+# |▒▒▒▒▒▒▒|       |       |       |
+# |       |       |       |       |
+# |   4   |   5   |   6   |   x   |
+# |       |       |       |       |
+# |▒▒▒▒▒▒▒|       |       |       |
+# |▒▒▒7▒▒▒|   8   |   9   |   -   |
+# |▒▒▒▒▒▒▒|       |       |       |
+# 
 def home():
     clear()
     logo("cALLculator > Home")
@@ -334,11 +395,12 @@ def home():
             bal(constant, ax, h)
         case "about":
             print("About")
-        case "credits":
+        case "credits": 
             credit()
             
     
 home()
+
 
 
 
